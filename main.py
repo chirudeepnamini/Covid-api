@@ -1,7 +1,15 @@
 from fastapi import FastAPI
 import requests
 from bs4 import BeautifulSoup as bs
+from fastapi.middleware.cors import CORSMiddleware
 app=FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 web_page= requests.get('https://www.mygov.in/covid-19/')
 soup=bs(web_page.text,features="html.parser")
